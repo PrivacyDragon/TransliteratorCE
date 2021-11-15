@@ -81,7 +81,8 @@ void menu() {
 		else if (kb_Data[4] == kb_2){ //Ogham
 			if (!ogham){
 				gfx_FillScreen(255);
-				gfx_PrintStringXY("ERROR: Font \"OGHAM\" not found!\nPlease transfer OGHAM.8xv to your calculator!",0,0);
+				gfx_PrintStringXY("ERROR: Font \"OGHAM\" not found!", 0,0);
+				gfx_PrintStringXY("Please transfer OGHAM.8xv to your calculator!",0,15);
 			}
 			else {
 				Transliterate(ogham);
