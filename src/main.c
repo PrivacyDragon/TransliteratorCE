@@ -32,25 +32,47 @@ char *input(){
 	return buffer;
 }
 
+void th(const char *in, char *out){
+	for(int i = 0; i < strlen(in); i++) {
+  		if(in[i] == 't' && in[i+1] == 'h') {
+   	 		*out = '1';
+    			i++; // skip h
+  		} else {
+    		*out = in[i]; // copy existing character
+  		}
+  		out++;
+	}
+	*out = 0;
+}
+
 void SetupFonts(){
 	futhark = fontlib_GetFontByIndex("FUTHARK", 0);
 	ogham = fontlib_GetFontByIndex("OGHAM", 0);
 }
 
-void Futhark(){
-}
 
 void Transliterate(fontlib_font_t *font){
 	char *toConvert;
+	char ToConvert[50];
 	gfx_BlitScreen();
 	gfx_FillScreen(255);
 	gfx_PrintStringXY("Input string:",1,1);
 	toConvert = input();
+	if (font == futhark){
+		gfx_PrintStringXY("function will enter", 30, 34);
+		delay(1000);
+		th(toConvert, ToConvert);
+	} else {
+		for(int i = 0; i < strlen(toConvert); i++) {
+			ToConvert[i] = toConvert[i];
+		}
+		ToConvert[strlen(toConvert)] = 0;
+	}	
 	gfx_FillScreen(255);
-	gfx_PrintStringXY(toConvert, 1, 25);
+	gfx_PrintStringXY(ToConvert, 1, 25);
 	fontlib_SetFont(font, 0);
 	fontlib_SetCursorPosition(1,1);
-	fontlib_DrawString(toConvert);
+	fontlib_DrawString(ToConvert);
 	delay(100);
 	do {
 		kb_Scan();
@@ -71,22 +93,22 @@ void menu() {
 		if (kb_Data[3] == kb_1){ //Elder Futhark
 			if (!futhark){
 				gfx_FillScreen(255);
-				gfx_PrintStringXY("ERROR: Font \"FUTHARK\" not found!", 0,0);
-				gfx_PrintStringXY("Please transfer FUTHARK.8xv to your calculator!",0,15);
+				gfx_PrintStringXY("ERROR: Font \"FUTHARK\" not found!", 1,1);
+				gfx_PrintStringXY("Transfer FUTHARK.8xv to your calculator!",1,16);
 			}
 			else {
 				Transliterate(futhark);
 			}
 		}
 		else if (kb_Data[4] == kb_2){ //Ogham
-			if (!ogham){
+			/*if (!ogham){
 				gfx_FillScreen(255);
 				gfx_PrintStringXY("ERROR: Font \"OGHAM\" not found!", 0,0);
 				gfx_PrintStringXY("Please transfer OGHAM.8xv to your calculator!",0,15);
 			}
-			else {
-				Transliterate(ogham);
-			}
+			else {*/
+				Transliterate(ogham_font);
+			//}
 		}
 		/*if (kb_Data[6] == kb_Clear){
 			return false;
