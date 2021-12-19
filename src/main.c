@@ -24,19 +24,20 @@ char *input(){
 		buffer[j] = 0;
 		//buffer++;
 	}
-	while((key = os_GetCSC()) != sk_Enter && i < 109) {
-		if(chars[key] && key != sk_Enter) {
-			if (key == 56){ //Delete key
+	while((key = os_GetCSC()) != sk_Enter) {
+		if (chars[key] && key != sk_Enter && i < 109) {
+			/*if (key == sk_Del){ //Delete key
 				//Delete the last character.
 				//This is done by going back one character. For what the user sees, the last character is replaced by a space.
 				i--;
-				gfx_PrintChar(' ');
+				gfx_SetTextXY(x-=10,y);
+				gfx_PrintChar('-');
 				x-=10;
-			}
+			}*/
 			buffer[i++] = chars[key];
-			if (x >= LCD_WIDTH){
+			if (x >= LCD_WIDTH-10){
+				y += 15;
 				x = 1;
-				y+=15;
 			}
 			gfx_SetTextXY(x+=10,y);
 			gfx_PrintChar(chars[key]);
@@ -80,7 +81,7 @@ void Transliterate(fontlib_font_t *font){
 	toConvert = input();
 	if (font == futhark){
 		//gfx_PrintStringXY("function will enter", 30, 34);
-		delay(1000);
+		//delay(1000);
 		th(toConvert, ToConvert);
 	} else {
 		for(int i = 0; i < strlen(toConvert); i++) {
@@ -118,7 +119,7 @@ void menu() {
 				gfx_BlitScreen();
 				gfx_FillScreen(255);
 				gfx_PrintStringXY("ERROR: Font \"FUTHARK\" not found!", 1,1);
-				gfx_PrintStringXY("Transfer FUTHARK.8xv to your calculator!",1,16);
+				gfx_PrintStringXY("Transfer FUTHARK.8xv to your calc!",1,16);
 				os_GetCSC();
 				gfx_BlitBuffer();
 			}
@@ -131,7 +132,7 @@ void menu() {
 				gfx_BlitScreen();
 				gfx_FillScreen(255);
 				gfx_PrintStringXY("ERROR: Font \"NYCTO\" not found!", 0,0);
-				gfx_PrintStringXY("Please transfer NYCTO.8xv to your calculator!",0,15);
+				gfx_PrintStringXY("Please transfer NYCTO.8xv to your calc!",0,15);
 				os_GetCSC();
 				gfx_BlitBuffer();
 			}
@@ -144,7 +145,7 @@ void menu() {
 				gfx_BlitScreen();
 				gfx_FillScreen(255);
 				gfx_PrintStringXY("ERROR: Font \"OGHAM\" not found!", 0,0);
-				gfx_PrintStringXY("Please transfer OGHAM.8xv to your calculator!",0,15);
+				gfx_PrintStringXY("Please transfer OGHAM.8xv to your calc!",0,15);
 				os_GetCSC();
 				gfx_BlitBuffer();
 			}
@@ -157,7 +158,7 @@ void menu() {
 				gfx_BlitScreen();
 				gfx_FillScreen(255);
 				gfx_PrintStringXY("ERROR: Font \"PHOENIC\" not found!", 0,0);
-				gfx_PrintStringXY("Please transfer PHOENIC.8xv to your calculator!",0,15);
+				gfx_PrintStringXY("Please transfer PHOENIC.8xv to your calc!",0,15);
 				os_GetCSC();
 				gfx_BlitBuffer();
 			}
@@ -169,9 +170,9 @@ void menu() {
 			if (!protoSinaitic){
 				gfx_BlitScreen();
 				gfx_FillScreen(255);
-				gfx_PrintStringXY("ERROR: Font \"SINAITIC\" not found!", 0,0);
-				gfx_PrintStringXY("Please transfer SINAITIC.8xv to your calculator!",0,15);
-				os_GetCSC();
+				gfx_PrintStringXY("ERROR: Font \"SINAITIC\" not found!", 1,1);
+				gfx_PrintStringXY("Please transfer SINAITIC.8xv to your calc!", 1, 16);
+				while (!os_GetCSC());
 				gfx_BlitBuffer();
 			}
 			else {
