@@ -33,4 +33,4 @@ I really want to thank my friend Simon, for he was the person to get me into alp
 
 ---
 
-If you find any bugs or have any ideas of what could be better, feel free to contact me via: privacy_dragon@tutanota.com
+If you find any bugs or have any ideas of what could be better, feel free to contact me via: calcs@webdragon.mywire.org
