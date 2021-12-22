@@ -24,23 +24,25 @@ char *input(){
 		buffer[j] = 0;
 		//buffer++;
 	}
+	gfx_SetTextBGColor(254);
 	while((key = os_GetCSC()) != sk_Enter) {
-		if (chars[key] && key != sk_Enter && i < 109) {
-			/*if (key == sk_Del){ //Delete key
+		if ((chars[key] && key != sk_Enter && i < 109) || key == sk_Del) {
+			if (key == sk_Del){ //Delete key
 				//Delete the last character.
 				//This is done by going back one character. For what the user sees, the last character is replaced by a space.
 				i--;
-				gfx_SetTextXY(x-=10,y);
-				gfx_PrintChar('-');
+				gfx_SetTextXY(x,y);
+				gfx_PrintChar('_');
 				x-=10;
-			}*/
-			buffer[i++] = chars[key];
-			if (x >= LCD_WIDTH-10){
-				y += 15;
-				x = 1;
+			} else {
+				buffer[i++] = chars[key];
+				if (x >= LCD_WIDTH-10){
+					y += 15;
+					x = 1;
+				}
+				gfx_SetTextXY(x+=10,y);
+				gfx_PrintChar(chars[key]);
 			}
-			gfx_SetTextXY(x+=10,y);
-			gfx_PrintChar(chars[key]);
 		}
 	}
 	//buffer[i++] = 0;
