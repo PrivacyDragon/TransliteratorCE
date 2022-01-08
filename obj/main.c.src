@@ -3,81 +3,346 @@
 	section	.text,"ax",@progbits
 	public	_input
 _input:
-	ld	hl, -59
+	ld	hl, -244
 	call	__frameset
-	xor	a, a
-	ld	(ix + -55), a
-	ld	hl, 51
-	ld	de, 1
-	ld	(ix + -58), de
-	lea	de, ix + -51
-	push	hl
-	or	a, a
-	sbc	hl, hl
-	push	hl
-	ld	(ix + -54), de
-	push	de
-	call	_memset
-	pop	hl
-	pop	hl
-	pop	hl
-	ld	hl, 100
-	push	hl
-	call	_delay
-	pop	hl
+	ld	hl, 1
+	ld	bc, -235
+	lea	iy, ix + 0
+	add	iy, bc
+	ld	(iy + 0), hl
+	ld	de, 0
+	lea	hl, ix + -116
+	push	ix
+	ld	bc, -229
+	add	ix, bc
+	ld	(ix + 0), hl
+	pop	ix
+	ld	bc, -226
+	lea	iy, ix + 0
+	add	iy, bc
+	ld	bc, 110
 BB0_1:
-BB0_2:
-	call	_os_GetCSC
-	cp	a, 9
-	jq	z, BB0_5
-	ld	de, 0
-	ld	e, a
-	ld	hl, L_.str
-	add	hl, de
-	ld	c, (hl)
-	ld	a, c
+	push	de
+	pop	hl
 	or	a, a
+	sbc	hl, bc
 	jq	z, BB0_2
-	ld	de, 0
-	ld	a, (ix + -55)
-	ld	e, a
-	inc	a
-	ld	(ix + -55), a
-	ld	hl, (ix + -54)
+	ld	(ix + -3), bc
+	ld	bc, -229
+	lea	hl, ix + 0
+	add	hl, bc
+	ld	hl, (hl)
 	add	hl, de
-	ld	(hl), c
-	ld	de, 5
-	ld	iy, (ix + -58)
-	add	iy, de
-	ld	hl, 15
+	ld	(hl), 0
+	lea	hl, iy + 0
+	add	hl, de
+	ld	(hl), 0
+	inc	de
+	ld	bc, (ix + -3)
+	jq	BB0_1
+BB0_2:
+	ld	bc, -238
+	lea	hl, ix + 0
+	add	hl, bc
+	ld	(hl), iy
+	ld	hl, -2
 	push	hl
-	ld	(ix + -58), iy
-	push	iy
-	ld	(ix + -59), c
+	call	_gfx_SetTextBGColor
+	pop	hl
+	ld	hl, 15
+	ld	bc, -241
+	lea	iy, ix + 0
+	add	iy, bc
+	ld	(iy + 0), hl
+	xor	a, a
+	ld	bc, -232
+	lea	hl, ix + 0
+	add	hl, bc
+	ld	(hl), a
+BB0_4:
+	call	_os_GetCSC
+	ld	e, a
+	cp	a, 9
+	jq	z, BB0_17
+	ld	bc, 0
+	push	bc
+	pop	iy
+	ld	c, e
+	ld	hl, L_.str
+	add	hl, bc
+	ld	c, (hl)
+	ld	a, e
+	cp	a, 56
+	jq	nz, BB0_6
+BB0_8:
+	ld	a, e
+	cp	a, 56
+	jq	nz, BB0_10
+	ld	bc, -232
+	lea	hl, ix + 0
+	add	hl, bc
+	ld	a, (hl)
+	dec	a
+	lea	iy, ix + 0
+	add	iy, bc
+	ld	(iy + 0), a
+	push	ix
+	ld	bc, -241
+	add	ix, bc
+	ld	hl, (ix + 0)
+	pop	ix
+	push	hl
+	ld	bc, -235
+	lea	hl, ix + 0
+	add	hl, bc
+	ld	hl, (hl)
+	push	hl
 	call	_gfx_SetTextXY
 	pop	hl
 	pop	hl
-	ld	a, (ix + -59)
+	ld	hl, 95
+	push	hl
+	call	_gfx_PrintChar
+	pop	hl
+	ld	de, -10
+	ld	bc, -235
+	lea	hl, ix + 0
+	add	hl, bc
+	ld	hl, (hl)
+	add	hl, de
+	push	ix
+	add	ix, bc
+	ld	(ix + 0), hl
+	pop	ix
+	jq	BB0_4
+BB0_6:
+	ld	(ix + -3), bc
+	ld	bc, -232
+	lea	hl, ix + 0
+	add	hl, bc
+	ld	a, (hl)
+	cp	a, 109
+	ld	bc, (ix + -3)
+	jq	nc, BB0_4
+	ld	a, c
+	or	a, a
+	jq	z, BB0_4
+	jq	BB0_8
+BB0_10:
+	ld	de, -232
+	lea	hl, ix + 0
+	add	hl, de
+	ld	a, (hl)
+	lea	de, iy + 0
+	ld	e, a
+	inc	a
+	ld	(ix + -3), bc
+	ld	bc, -232
+	lea	iy, ix + 0
+	add	iy, bc
+	ld	(iy + 0), a
+	push	ix
+	ld	bc, -229
+	add	ix, bc
+	ld	hl, (ix + 0)
+	pop	ix
+	add	hl, de
+	ld	bc, (ix + -3)
+	ld	(hl), c
+	ld	de, -235
+	lea	hl, ix + 0
+	add	hl, de
+	ld	hl, (hl)
+	ld	de, 310
+	or	a, a
+	sbc	hl, de
+	call	__setflag
+	ld	a, 1
+	jq	p, BB0_12
+	ld	a, 0
+BB0_12:
+	ld	de, -241
+	lea	hl, ix + 0
+	add	hl, de
+	ld	hl, (hl)
+	push	hl
+	pop	iy
+	ld	de, 15
+	add	iy, de
+	push	ix
+	ld	de, -244
+	add	ix, de
+	ld	(ix + 0), iy
+	pop	ix
+	bit	0, a
+	jq	nz, BB0_14
+	ld	de, -244
+	lea	iy, ix + 0
+	add	iy, de
+	ld	(iy + 0), hl
+BB0_14:
+	ld	de, -241
+	lea	hl, ix + 0
+	add	hl, de
+	ld	(hl), c
+	ld	de, 10
+	ld	bc, -235
+	lea	iy, ix + 0
+	add	iy, bc
+	ld	iy, (iy + 0)
+	add	iy, de
+	bit	0, a
+	ld	hl, 11
+	jq	nz, BB0_16
+	lea	hl, iy + 0
+BB0_16:
+	ld	bc, -235
+	lea	iy, ix + 0
+	add	iy, bc
+	ld	(iy + 0), hl
+	push	ix
+	ld	bc, -244
+	add	ix, bc
+	ld	de, (ix + 0)
+	pop	ix
+	push	de
+	push	hl
+	call	_gfx_SetTextXY
+	pop	hl
+	pop	hl
+	ld	bc, -241
+	lea	hl, ix + 0
+	add	hl, bc
+	ld	a, (hl)
 	ld	l, a
 	push	hl
 	call	_gfx_PrintChar
 	pop	hl
-	jq	BB0_1
-BB0_5:
-	ld	hl, 20
+	ld	bc, -244
+	lea	hl, ix + 0
+	add	hl, bc
+	ld	hl, (hl)
+	push	ix
+	ld	bc, -241
+	add	ix, bc
+	ld	(ix + 0), hl
+	pop	ix
+	jq	BB0_4
+BB0_17:
+	ld	hl, (_futhark)
+	ld	de, (ix + 6)
+	or	a, a
+	sbc	hl, de
+	jq	nz, BB0_25
+	ld	bc, -229
+	lea	hl, ix + 0
+	add	hl, bc
+	ld	hl, (hl)
 	push	hl
+	call	_strlen
 	push	hl
-	ld	hl, (ix + -54)
+	pop	iy
+	pop	hl
+	ld	bc, -238
+	lea	hl, ix + 0
+	add	hl, bc
+	ld	hl, (hl)
+	push	ix
+	ld	bc, -232
+	add	ix, bc
+	ld	(ix + 0), hl
+	pop	ix
+	ld	d, 0
+	ld	a, d
+BB0_19:
+	ld	bc, 0
+	ld	c, a
+	push	bc
+	pop	hl
+	lea	de, iy + 0
+	or	a, a
+	sbc	hl, de
+	jq	nc, BB0_28
+	ld	d, a
+	ld	(ix + -3), de
+	ld	de, -235
+	lea	hl, ix + 0
+	add	hl, de
+	ld	(hl), iy
+	ld	de, -229
+	lea	iy, ix + 0
+	add	iy, de
+	ld	hl, (iy + 0)
+	add	hl, bc
+	ld	de, (ix + -3)
+	ld	e, (hl)
+	ld	a, e
+	cp	a, 116
+	jq	nz, BB0_23
+	inc	bc
+	ld	(ix + -3), de
+	ld	de, -229
+	lea	hl, ix + 0
+	add	hl, de
+	ld	hl, (hl)
+	add	hl, bc
+	ld	a, (hl)
+	cp	a, 104
+	ld	de, (ix + -3)
+	jq	nz, BB0_23
+	ld	bc, -232
+	lea	hl, ix + 0
+	add	hl, bc
+	ld	hl, (hl)
+	ld	(hl), 49
+	ld	a, d
+	inc	a
+	jq	BB0_24
+BB0_23:
+	ld	bc, -232
+	lea	hl, ix + 0
+	add	hl, bc
+	ld	hl, (hl)
+	ld	(hl), e
+	ld	a, d
+BB0_24:
+	inc	a
+	inc	hl
+	ld	bc, -232
+	lea	iy, ix + 0
+	add	iy, bc
+	ld	(iy + 0), hl
+	ld	bc, -235
+	lea	hl, ix + 0
+	add	hl, bc
+	ld	iy, (hl)
+	jq	BB0_19
+BB0_25:
+	ld	de, 0
+	ld	bc, -232
+	lea	hl, ix + 0
+	add	hl, bc
+	ld	a, (hl)
+	ld	e, a
+	ld	bc, -229
+	lea	iy, ix + 0
+	add	iy, bc
+	ld	hl, (iy + 0)
 	push	hl
-	call	_gfx_PrintStringXY
-	pop	hl
-	pop	hl
-	pop	hl
-	ld	hl, 1000
-	push	hl
-	call	_delay
-	pop	hl
-	ld	hl, (ix + -54)
+	pop	iy
+	add	iy, de
+	jq	BB0_26
+BB0_28:
+	ld	bc, -238
+	lea	hl, ix + 0
+	add	hl, bc
+	ld	hl, (hl)
+	ld	bc, -232
+	lea	iy, ix + 0
+	add	iy, bc
+	ld	iy, (iy + 0)
+BB0_26:
+	ld	(iy), 0
 	ld	sp, ix
 	pop	ix
 	ret
@@ -102,13 +367,34 @@ _SetupFonts:
 	call	_fontlib_GetFontByIndex
 	pop	de
 	pop	de
+	ld	(_nyctograph), hl
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	ld	hl, L_.str.3
+	push	hl
+	call	_fontlib_GetFontByIndex
+	pop	de
+	pop	de
 	ld	(_ogham), hl
-	ret
-	section	.text,"ax",@progbits
-
-	section	.text,"ax",@progbits
-	public	_Futhark
-_Futhark:
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	ld	hl, L_.str.4
+	push	hl
+	call	_fontlib_GetFontByIndex
+	pop	de
+	pop	de
+	ld	(_phoenician), hl
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	ld	hl, L_.str.5
+	push	hl
+	call	_fontlib_GetFontByIndex
+	pop	de
+	pop	de
+	ld	(_protoSinaitic), hl
 	ret
 	section	.text,"ax",@progbits
 
@@ -118,7 +404,7 @@ _Transliterate:
 	ld	hl, -6
 	call	__frameset
 	ld	hl, (ix + 6)
-	ld	(ix + -6), hl
+	ld	(ix + -3), hl
 	or	a, a
 	sbc	hl, hl
 	push	hl
@@ -131,32 +417,25 @@ _Transliterate:
 	ld	hl, 1
 	push	hl
 	push	hl
-	ld	hl, L_.str.3
+	ld	hl, L_.str.6
 	push	hl
 	call	_gfx_PrintStringXY
 	pop	hl
 	pop	hl
 	pop	hl
+	ld	hl, (ix + -3)
+	push	hl
 	call	_input
-	ld	(ix + -3), hl
+	ld	(ix + -6), hl
+	pop	hl
 	ld	hl, -1
 	push	hl
 	call	_gfx_FillScreen
 	pop	hl
-	ld	hl, 25
-	push	hl
-	ld	hl, 1
-	push	hl
-	ld	hl, (ix + -3)
-	push	hl
-	call	_gfx_PrintStringXY
-	pop	hl
-	pop	hl
-	pop	hl
 	or	a, a
 	sbc	hl, hl
 	push	hl
-	ld	hl, (ix + -6)
+	ld	hl, (ix + -3)
 	push	hl
 	call	_fontlib_SetFont
 	pop	hl
@@ -167,7 +446,7 @@ _Transliterate:
 	call	_fontlib_SetCursorPosition
 	pop	hl
 	pop	hl
-	ld	hl, (ix + -3)
+	ld	hl, (ix + -6)
 	push	hl
 	call	_fontlib_DrawString
 	pop	hl
@@ -175,7 +454,7 @@ _Transliterate:
 	push	hl
 	call	_delay
 	pop	hl
-BB3_1:
+BB2_1:
 	call	_kb_Scan
 	ld	hl, -720868
 	push	de
@@ -187,7 +466,7 @@ BB3_1:
 	pop	de
 	ld	a, l
 	cp	a, 64
-	jq	z, BB3_3
+	jq	z, BB2_3
 	ld	hl, -720868
 	push	de
 	ld	e, (hl)
@@ -202,8 +481,8 @@ BB3_1:
 	ld	l, 1
 	xor	a, l
 	bit	0, a
-	jq	nz, BB3_1
-BB3_3:
+	jq	nz, BB2_1
+BB2_3:
 	ld	hl, 1
 	ld	(ix + 6), hl
 	ld	sp, ix
@@ -214,7 +493,7 @@ BB3_3:
 	section	.text,"ax",@progbits
 	public	_menu
 _menu:
-	ld	hl, L_.str.4
+	ld	hl, L_.str.7
 	ld	de, 1
 	push	de
 	push	de
@@ -237,7 +516,7 @@ _menu:
 	push	hl
 	ld	hl, 150
 	push	hl
-	ld	hl, L_.str.5
+	ld	hl, L_.str.8
 	push	hl
 	call	_gfx_PrintStringXY
 	pop	hl
@@ -247,7 +526,7 @@ _menu:
 	push	hl
 	ld	hl, 1
 	push	hl
-	ld	hl, L_.str.6
+	ld	hl, L_.str.9
 	push	hl
 	call	_gfx_PrintStringXY
 	pop	hl
@@ -257,17 +536,47 @@ _menu:
 	push	hl
 	ld	hl, 1
 	push	hl
-	ld	hl, L_.str.7
+	ld	hl, L_.str.10
 	push	hl
 	call	_gfx_PrintStringXY
 	pop	hl
 	pop	hl
 	pop	hl
-	ld	hl, 126
+	ld	hl, 111
 	push	hl
 	ld	hl, 1
 	push	hl
-	ld	hl, L_.str.8
+	ld	hl, L_.str.11
+	push	hl
+	call	_gfx_PrintStringXY
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	hl, 131
+	push	hl
+	ld	hl, 1
+	push	hl
+	ld	hl, L_.str.12
+	push	hl
+	call	_gfx_PrintStringXY
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	hl, 151
+	push	hl
+	ld	hl, 1
+	push	hl
+	ld	hl, L_.str.13
+	push	hl
+	call	_gfx_PrintStringXY
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	hl, 176
+	push	hl
+	ld	hl, 1
+	push	hl
+	ld	hl, L_.str.14
 	push	hl
 	call	_gfx_PrintStringXY
 	pop	hl
@@ -277,13 +586,13 @@ _menu:
 	push	hl
 	ld	hl, 1
 	push	hl
-	ld	hl, L_.str.9
+	ld	hl, L_.str.15
 	push	hl
 	call	_gfx_PrintStringXY
 	pop	hl
 	pop	hl
 	pop	hl
-BB4_1:
+BB3_1:
 	call	_kb_Scan
 	ld	hl, -720874
 	push	de
@@ -295,34 +604,46 @@ BB4_1:
 	pop	de
 	ld	a, l
 	cp	a, 2
-	jq	nz, BB4_4
+	jq	nz, BB3_6
 	ld	hl, (_futhark)
 	add	hl, bc
 	or	a, a
 	sbc	hl, bc
-	jq	nz, BB4_9
+	jq	nz, BB3_30
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	call	_gfx_Blit
+	pop	hl
 	ld	hl, -1
 	push	hl
 	call	_gfx_FillScreen
 	pop	hl
-	or	a, a
-	sbc	hl, hl
+	ld	hl, 1
 	push	hl
 	push	hl
-	ld	hl, L_.str.10
+	ld	hl, L_.str.16
 	push	hl
 	call	_gfx_PrintStringXY
 	pop	hl
 	pop	hl
 	pop	hl
-	ld	hl, 15
+	ld	hl, 16
 	push	hl
+	ld	hl, 1
+	push	hl
+	ld	hl, L_.str.17
+	push	hl
+	call	_gfx_PrintStringXY
+	pop	hl
+	pop	hl
+	pop	hl
+BB3_4:
+	call	_os_GetCSC
 	or	a, a
-	sbc	hl, hl
-	push	hl
-	ld	hl, L_.str.11
-	jq	BB4_7
-BB4_4:
+	jq	z, BB3_4
+	jq	BB3_5
+BB3_6:
 	ld	hl, -720872
 	push	de
 	ld	e, (hl)
@@ -333,12 +654,17 @@ BB4_4:
 	pop	de
 	ld	a, l
 	cp	a, 2
-	jq	nz, BB4_11
-	ld	hl, (_ogham)
+	jq	nz, BB3_12
+	ld	hl, (_nyctograph)
 	add	hl, bc
 	or	a, a
 	sbc	hl, bc
-	jq	nz, BB4_9
+	jq	nz, BB3_30
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	call	_gfx_Blit
+	pop	hl
 	ld	hl, -1
 	push	hl
 	call	_gfx_FillScreen
@@ -347,19 +673,194 @@ BB4_4:
 	sbc	hl, hl
 	push	hl
 	push	hl
-	ld	hl, L_.str.12
-BB4_7:
+	ld	hl, L_.str.18
 	push	hl
 	call	_gfx_PrintStringXY
 	pop	hl
 	pop	hl
-	jq	BB4_10
-BB4_9:
+	pop	hl
+	ld	hl, 15
+	push	hl
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	ld	hl, L_.str.19
+	push	hl
+	call	_gfx_PrintStringXY
+	pop	hl
+	pop	hl
+	pop	hl
+BB3_9:
+	call	_os_GetCSC
+	or	a, a
+	jq	z, BB3_9
+	jq	BB3_5
+BB3_12:
+	ld	hl, -720870
+	push	de
+	ld	e, (hl)
+	inc	hl
+	ld	d, (hl)
+	ld	l, e
+	ld	h, d
+	pop	de
+	ld	a, l
+	cp	a, 2
+	jq	nz, BB3_18
+	ld	hl, (_ogham)
+	add	hl, bc
+	or	a, a
+	sbc	hl, bc
+	jq	nz, BB3_30
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	call	_gfx_Blit
+	pop	hl
+	ld	hl, -1
+	push	hl
+	call	_gfx_FillScreen
+	pop	hl
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	push	hl
+	ld	hl, L_.str.20
+	push	hl
+	call	_gfx_PrintStringXY
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	hl, 15
+	push	hl
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	ld	hl, L_.str.21
+	push	hl
+	call	_gfx_PrintStringXY
+	pop	hl
+	pop	hl
+	pop	hl
+BB3_15:
+	call	_os_GetCSC
+	or	a, a
+	jq	z, BB3_15
+	jq	BB3_5
+BB3_18:
+	ld	hl, -720874
+	push	de
+	ld	e, (hl)
+	inc	hl
+	ld	d, (hl)
+	ld	l, e
+	ld	h, d
+	pop	de
+	ld	a, l
+	cp	a, 4
+	jq	nz, BB3_24
+	ld	hl, (_protoSinaitic)
+	add	hl, bc
+	or	a, a
+	sbc	hl, bc
+	jq	nz, BB3_29
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	call	_gfx_Blit
+	pop	hl
+	ld	hl, -1
+	push	hl
+	call	_gfx_FillScreen
+	pop	hl
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	push	hl
+	ld	hl, L_.str.22
+	push	hl
+	call	_gfx_PrintStringXY
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	hl, 15
+	push	hl
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	ld	hl, L_.str.23
+	push	hl
+	call	_gfx_PrintStringXY
+	pop	hl
+	pop	hl
+	pop	hl
+BB3_21:
+	call	_os_GetCSC
+	or	a, a
+	jq	z, BB3_21
+	jq	BB3_5
+BB3_24:
+	ld	hl, -720872
+	push	de
+	ld	e, (hl)
+	inc	hl
+	ld	d, (hl)
+	ld	l, e
+	ld	h, d
+	pop	de
+	ld	a, l
+	cp	a, 4
+	jq	nz, BB3_32
+	ld	hl, (_protoSinaitic)
+	add	hl, bc
+	or	a, a
+	sbc	hl, bc
+	jq	nz, BB3_30
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	call	_gfx_Blit
+	pop	hl
+	ld	hl, -1
+	push	hl
+	call	_gfx_FillScreen
+	pop	hl
+	ld	hl, 1
+	push	hl
+	push	hl
+	ld	hl, L_.str.24
+	push	hl
+	call	_gfx_PrintStringXY
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	hl, 16
+	push	hl
+	ld	hl, 1
+	push	hl
+	ld	hl, L_.str.25
+	push	hl
+	call	_gfx_PrintStringXY
+	pop	hl
+	pop	hl
+	pop	hl
+BB3_27:
+	call	_os_GetCSC
+	or	a, a
+	jq	z, BB3_27
+BB3_5:
+	ld	hl, 1
+	push	hl
+	call	_gfx_Blit
+	jq	BB3_31
+BB3_29:
+	ld	hl, (_phoenician)
+BB3_30:
 	push	hl
 	call	_Transliterate
-BB4_10:
+BB3_31:
 	pop	hl
-BB4_11:
+BB3_32:
 	ld	hl, -720868
 	push	de
 	ld	e, (hl)
@@ -370,7 +871,7 @@ BB4_11:
 	pop	de
 	ld	a, l
 	cp	a, 64
-	jq	nz, BB4_1
+	jq	nz, BB3_1
 	ret
 	section	.text,"ax",@progbits
 
@@ -395,19 +896,29 @@ _main:
 L_.str:
 	db	"",000o,000o,000o,000o,000o,000o,000o,000o,000o,000o,"""wrmh",000o,000o,"?[vqlg",000o,000o,":zupkfc",000o," ytojeb",000o,000o,"xsnida",000o,000o,000o,000o,000o,000o,000o,000o,000o
 
-	section	.rodata,"a",@progbits
-	private	L_.str.1
-L_.str.1:
-	db	"FUTHARK",000o
-
 	section	.bss,"aw",@nobits
 	public	_futhark
 _futhark:
 	rb	3
 
 	section	.rodata,"a",@progbits
+	private	L_.str.1
+L_.str.1:
+	db	"FUTHARK",000o
+
+	section	.rodata,"a",@progbits
 	private	L_.str.2
 L_.str.2:
+	db	"NYCTO",000o
+
+	section	.bss,"aw",@nobits
+	public	_nyctograph
+_nyctograph:
+	rb	3
+
+	section	.rodata,"a",@progbits
+	private	L_.str.3
+L_.str.3:
 	db	"OGHAM",000o
 
 	section	.bss,"aw",@nobits
@@ -416,61 +927,131 @@ _ogham:
 	rb	3
 
 	section	.rodata,"a",@progbits
-	private	L_.str.3
-L_.str.3:
-	db	"Input string:",000o
-
-	section	.rodata,"a",@progbits
 	private	L_.str.4
 L_.str.4:
-	db	"Calculator Transliterator",000o
+	db	"PHOENIC",000o
+
+	section	.bss,"aw",@nobits
+	public	_phoenician
+_phoenician:
+	rb	3
 
 	section	.rodata,"a",@progbits
 	private	L_.str.5
 L_.str.5:
-	db	"Menu:",000o
+	db	"SINAITIC",000o
+
+	section	.bss,"aw",@nobits
+	public	_protoSinaitic
+_protoSinaitic:
+	rb	3
 
 	section	.rodata,"a",@progbits
 	private	L_.str.6
 L_.str.6:
-	db	"[1]: Elder Futhark",000o
+	db	"Input string:",000o
 
 	section	.rodata,"a",@progbits
 	private	L_.str.7
 L_.str.7:
-	db	"[2]: Ogham",000o
+	db	"Calculator Transliterator",000o
 
 	section	.rodata,"a",@progbits
 	private	L_.str.8
 L_.str.8:
-	db	"press [clear] to exit",000o
+	db	"Menu:",000o
 
 	section	.rodata,"a",@progbits
 	private	L_.str.9
 L_.str.9:
-	db	"(c) Privacy_Dragon 2021",000o
+	db	"[1]: Elder Futhark",000o
 
 	section	.rodata,"a",@progbits
 	private	L_.str.10
 L_.str.10:
-	db	"ERROR: Font ""FUTHARK"" not found!",000o
+	db	"[2]: Nyctograph",000o
 
 	section	.rodata,"a",@progbits
 	private	L_.str.11
 L_.str.11:
-	db	"Please transfer FUTHARK.8xv to your calculator!",000o
+	db	"[3]: Ogham",000o
 
 	section	.rodata,"a",@progbits
 	private	L_.str.12
 L_.str.12:
-	db	"ERROR: Font ""OGHAM"" not found!",012o,"Please transfer OGHAM.8xv to your calculator!",000o
+	db	"[4]: Phoenician",000o
+
+	section	.rodata,"a",@progbits
+	private	L_.str.13
+L_.str.13:
+	db	"[5]: Proto-sinaitic",000o
+
+	section	.rodata,"a",@progbits
+	private	L_.str.14
+L_.str.14:
+	db	"press [clear] to exit",000o
+
+	section	.rodata,"a",@progbits
+	private	L_.str.15
+L_.str.15:
+	db	"(c) Privacy_Dragon 2021-2022",000o
+
+	section	.rodata,"a",@progbits
+	private	L_.str.16
+L_.str.16:
+	db	"ERROR: Font ""FUTHARK"" not found!",000o
+
+	section	.rodata,"a",@progbits
+	private	L_.str.17
+L_.str.17:
+	db	"Transfer FUTHARK.8xv to your calc!",000o
+
+	section	.rodata,"a",@progbits
+	private	L_.str.18
+L_.str.18:
+	db	"ERROR: Font ""NYCTO"" not found!",000o
+
+	section	.rodata,"a",@progbits
+	private	L_.str.19
+L_.str.19:
+	db	"Please transfer NYCTO.8xv to your calc!",000o
+
+	section	.rodata,"a",@progbits
+	private	L_.str.20
+L_.str.20:
+	db	"ERROR: Font ""OGHAM"" not found!",000o
+
+	section	.rodata,"a",@progbits
+	private	L_.str.21
+L_.str.21:
+	db	"Please transfer OGHAM.8xv to your calc!",000o
+
+	section	.rodata,"a",@progbits
+	private	L_.str.22
+L_.str.22:
+	db	"ERROR: Font ""PHOENIC"" not found!",000o
+
+	section	.rodata,"a",@progbits
+	private	L_.str.23
+L_.str.23:
+	db	"Please transfer PHOENIC.8xv to your calc!",000o
+
+	section	.rodata,"a",@progbits
+	private	L_.str.24
+L_.str.24:
+	db	"ERROR: Font ""SINAITIC"" not found!",000o
+
+	section	.rodata,"a",@progbits
+	private	L_.str.25
+L_.str.25:
+	db	"Please transfer SINAITIC.8xv to your calc!",000o
 
 	ident	"clang version 12.0.0 (https://github.com/jacobly0/llvm-project 43ccc18f932ddec70ab2ecd153ad8436ec791a68)"
-	extern	_memset
 	extern	__Unwind_SjLj_Register
 	extern	_gfx_PrintChar
 	extern	__frameset
 	extern	_fontlib_GetFontByIndex
+	extern	_gfx_SetTextBGColor
 	extern	_gfx_Begin
 	extern	_kb_Scan
 	extern	_fontlib_DrawString
@@ -478,6 +1059,8 @@ L_.str.12:
 	extern	_fontlib_SetFont
 	extern	_gfx_HorizLine
 	extern	__sand
+	extern	_strlen
+	extern	__setflag
 	extern	_gfx_FillScreen
 	extern	__Unwind_SjLj_Unregister
 	extern	_gfx_Blit
@@ -485,5 +1068,5 @@ L_.str.12:
 	extern	_delay
 	extern	_gfx_PrintStringXY
 	extern	_os_GetCSC
-	extern	_gfx_End
 	extern	_gfx_SetTextXY
+	extern	_gfx_End
