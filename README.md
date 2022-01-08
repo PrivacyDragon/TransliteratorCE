@@ -30,6 +30,8 @@ You can find them at: https://tiny.cc/clibs
 
 ## Thanks to:
 I really want to thank my friend Simon, for he was the person to get me into alphabets again.
+Further thanks to Commandblockguy for helping with the 'th' function, though later I did it in a bit different way.
+And thanks to RoccoLox Programs for testing this program before release.
 
 ---
 
