@@ -5,7 +5,6 @@
 #include <keypadc.h>
 #include <fontlibc.h>
 #include <string.h>
-#include "oghamfont.h"
 
 fontlib_font_t *futhark;
 fontlib_font_t *nyctograph;
@@ -13,21 +12,21 @@ fontlib_font_t *ogham;
 fontlib_font_t *phoenician;
 fontlib_font_t *protoSinaitic;
 
-char *input(){
+char *input(fontlib_font_t *font){
 	const char *chars = "\0\0\0\0\0\0\0\0\0\0\"wrmh\0\0?[vqlg\0\0:zupkfc\0 ytojeb\0\0xsnida\0\0\0\0\0\0\0\0";
 	uint8_t key, i = 0;
 	int x = 1;
 	int y = 15;
-	char buffer[110];//= "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
-	delay(100);
+	char buffer[110];
+	char thbuffer[110];
 	for (int j = 0; j < 110; j++){
 		buffer[j] = 0;
-		//buffer++;
+		thbuffer[j] = 0;
 	}
 	gfx_SetTextBGColor(254);
 	while((key = os_GetCSC()) != sk_Enter) {
 		if ((chars[key] && key != sk_Enter && i < 109) || key == sk_Del) {
-			if (key == sk_Del){ //Delete key
+			if (key == sk_Del && i>0){ //Delete key
 				//Delete the last character.
 				//This is done by going back one character. For what the user sees, the last character is replaced by a space.
 				i--;
@@ -45,24 +44,24 @@ char *input(){
 			}
 		}
 	}
-	//buffer[i++] = 0;
-	//char *string = strtok(buffer, "\"");
-	//gfx_PrintStringXY(buffer, 20, 20);
-	//delay(1000);
-	return buffer;
-}
-
-void th(const char *in, char *out){
-	for(int i = 0; i < strlen(in); i++) {
-  		if(in[i] == 't' && in[i+1] == 'h') {
-   	 		*out = '1';
-    			i++; // skip h
-  		} else {
-    		*out = in[i]; // copy existing character
-  		}
-  		out++;
+	//Now deal with the replacing of 'th' with '1' if the font is futhark.
+	if (font == futhark){
+		int outnr = 0;
+		for (i = 0; i < strlen(buffer); i++) {
+			if (buffer[i] == 't' && buffer[i+1] == 'h') {
+				thbuffer[outnr] = '1';
+				i++;
+			} else {
+				thbuffer[outnr] = buffer[i];
+			}
+			outnr++;
+		}
+		thbuffer[outnr] = 0;
+		return thbuffer;
+	} else {
+		buffer[i++] = 0;
+		return buffer;
 	}
-	*out = 0;
 }
 
 void SetupFonts(){
@@ -73,29 +72,16 @@ void SetupFonts(){
 	protoSinaitic = fontlib_GetFontByIndex("SINAITIC", 0);
 }
 
-
 void Transliterate(fontlib_font_t *font){
 	char *toConvert;
-	char ToConvert[110];
 	gfx_BlitScreen();
 	gfx_FillScreen(255);
 	gfx_PrintStringXY("Input string:",1,1);
-	toConvert = input();
-	if (font == futhark){
-		//gfx_PrintStringXY("function will enter", 30, 34);
-		//delay(1000);
-		th(toConvert, ToConvert);
-	} else {
-		for(int i = 0; i < strlen(toConvert); i++) {
-			ToConvert[i] = toConvert[i];
-		}
-		ToConvert[strlen(toConvert)] = 0;
-	}	
+	toConvert = input(font);
 	gfx_FillScreen(255);
-	//gfx_PrintStringXY(ToConvert, 1, 25);
 	fontlib_SetFont(font, 0);
 	fontlib_SetCursorPosition(1,1);
-	fontlib_DrawString(ToConvert);
+	fontlib_DrawString(toConvert);
 	delay(100);
 	do {
 		kb_Scan();
@@ -113,7 +99,7 @@ void menu() {
 	gfx_PrintStringXY("[4]: Phoenician", 1, 131);
 	gfx_PrintStringXY("[5]: Proto-sinaitic", 1, 151);
 	gfx_PrintStringXY("press [clear] to exit", 1, 176);
-	gfx_PrintStringXY("(c) Privacy_Dragon 2021", 1, LCD_HEIGHT-20);
+	gfx_PrintStringXY("(c) Privacy_Dragon 2021-2022", 1, LCD_HEIGHT-20);
 	do {
 		kb_Scan();
 		if (kb_Data[3] == kb_1){ //Elder Futhark
@@ -122,7 +108,7 @@ void menu() {
 				gfx_FillScreen(255);
 				gfx_PrintStringXY("ERROR: Font \"FUTHARK\" not found!", 1,1);
 				gfx_PrintStringXY("Transfer FUTHARK.8xv to your calc!",1,16);
-				os_GetCSC();
+				while (!os_GetCSC());
 				gfx_BlitBuffer();
 			}
 			else {
@@ -135,7 +121,7 @@ void menu() {
 				gfx_FillScreen(255);
 				gfx_PrintStringXY("ERROR: Font \"NYCTO\" not found!", 0,0);
 				gfx_PrintStringXY("Please transfer NYCTO.8xv to your calc!",0,15);
-				os_GetCSC();
+				while (!os_GetCSC());
 				gfx_BlitBuffer();
 			}
 			else {
@@ -148,7 +134,7 @@ void menu() {
 				gfx_FillScreen(255);
 				gfx_PrintStringXY("ERROR: Font \"OGHAM\" not found!", 0,0);
 				gfx_PrintStringXY("Please transfer OGHAM.8xv to your calc!",0,15);
-				os_GetCSC();
+				while (!os_GetCSC());
 				gfx_BlitBuffer();
 			}
 			else {
@@ -161,7 +147,7 @@ void menu() {
 				gfx_FillScreen(255);
 				gfx_PrintStringXY("ERROR: Font \"PHOENIC\" not found!", 0,0);
 				gfx_PrintStringXY("Please transfer PHOENIC.8xv to your calc!",0,15);
-				os_GetCSC();
+				while (!os_GetCSC());
 				gfx_BlitBuffer();
 			}
 			else {
@@ -181,23 +167,13 @@ void menu() {
 				Transliterate(protoSinaitic);
 			}
 		}
-		/*if (kb_Data[6] == kb_Clear){
-			return false;
-		} else {
-			return true;
-		}*/
 	} while (kb_Data[6] != kb_Clear);
 }
 	
 int main(void) {
 	gfx_Begin();
 	fontlib_SetNewlineOptions(FONTLIB_ENABLE_AUTO_WRAP);
-	SetupFonts();
-	menu();
-	//fontlib_SetFont(ogham_font, 0);
-	//fontlib_DrawString("test test test");
-	//while (!os_GetCSC());
+	SetupFonts(); \\the fonts are set up here.
+	menu(); \\everything happens from the menu. the menu is the next 'main' kinda.
 	gfx_End();
 }
-
-//bij het laten zien van het resultaat moet je [enter] gebruiken, maar [clear] mag ook, maar dan schiet het gelijk door, waardoor je met clear het programma verlaat.
