@@ -1,5 +1,15 @@
 # TransliteratorCE
 
+[<img src="https://github.com/PrivacyDragon/CalculatorArchivesButtons/blob/main/DownloadOnCemetech2.1.png?raw=true"
+     alt="Download it on Cemetech"
+     height="80">](https://ceme.tech/DL2211) 
+[<img src="https://github.com/PrivacyDragon/CalculatorArchivesButtons/blob/main/GrabOnTiplanet.png?raw=true"
+     alt="Grab it on TI-planet"
+     height="80">](https://ti-pla.net/a2837025)
+[<img src="https://github.com/PrivacyDragon/CalculatorArchivesButtons/blob/main/GetOnTicalc.png?raw=true"
+     alt="Get it on Ticalc.org"
+     height="80">](https://www.ticalc.org/archives/files/fileinfo/477/47737.html)
+
 ## What does this program do?
 TransliteratorCE is a program to transliterate text on your calculator. This means that this program can display text you give, in another alphabet/writing system!
 You want to display something in Runes? This program makes that possible on your calculator!
